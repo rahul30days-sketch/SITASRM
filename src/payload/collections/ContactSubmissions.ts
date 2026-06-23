@@ -5,7 +5,7 @@ export const ContactSubmissions: CollectionConfig = {
   slug: 'contact-submissions',
   admin: {
     useAsTitle: 'name',
-    defaultColumns: ['name', 'email', 'subject', 'status', 'createdAt'],
+    defaultColumns: ['name', 'phone', 'email', 'subject', 'status', 'createdAt'],
     group: 'Forms',
   },
   access: {
@@ -16,7 +16,7 @@ export const ContactSubmissions: CollectionConfig = {
   },
   fields: [
     { name: 'name', type: 'text', required: true, maxLength: 100 },
-    { name: 'email', type: 'email', required: true },
+    { name: 'email', type: 'email' },
     { name: 'phone', type: 'text', maxLength: 15 },
     { name: 'subject', type: 'text', required: true, maxLength: 200 },
     { name: 'message', type: 'textarea', required: true, maxLength: 2000 },

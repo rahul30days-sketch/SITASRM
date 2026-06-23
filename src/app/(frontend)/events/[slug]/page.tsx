@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
+import Image from 'next/image'
 import { safeFind } from '@/lib/payload'
 import { buildMetadata } from '@/lib/seo/metadata'
 import Breadcrumb from '@/components/common/Breadcrumb'
@@ -29,6 +30,10 @@ export default async function EventDetailPage({ params }: { params: Promise<{ sl
   const event = result.docs[0] as any
   if (!event) notFound()
 
+  const eventImages = (Array.isArray(event.images) ? event.images : [])
+    .map((row: any) => row?.image)
+    .filter((m: any) => m?.url)
+
   return (
     <>
       <JsonLd schema={eventSchema({ title: event.title as string, startDate: event.startDate as string, endDate: event.endDate as string | undefined, venue: event.venue as string | undefined, shortDescription: event.shortDescription as string | undefined, slug })} />
@@ -50,6 +55,35 @@ export default async function EventDetailPage({ params }: { params: Promise<{ sl
             <a href={event.registrationLink as string} target="_blank" rel="noopener noreferrer" className="mt-4 inline-block rounded-md bg-accent px-6 py-2 text-sm font-semibold text-white hover:bg-accent-dark">
               Register Now
             </a>
+          )}
+          {eventImages.length > 0 && (
+            <div className="mt-8 space-y-4">
+              <div className="relative aspect-video w-full overflow-hidden rounded-lg shadow-card">
+                <Image
+                  src={eventImages[0].url}
+                  alt={eventImages[0].alt || (event.title as string)}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 768px"
+                  className="object-cover"
+                  priority
+                />
+              </div>
+              {eventImages.length > 1 && (
+                <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
+                  {eventImages.slice(1).map((m: any, i: number) => (
+                    <div key={i} className="relative aspect-video overflow-hidden rounded-lg shadow-card">
+                      <Image
+                        src={m.url}
+                        alt={m.alt || (event.title as string)}
+                        fill
+                        sizes="(max-width: 640px) 50vw, 33vw"
+                        className="object-cover"
+                      />
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           )}
           {event.description && (
             <div className="mt-8"><RichTextRenderer content={event.description} /></div>

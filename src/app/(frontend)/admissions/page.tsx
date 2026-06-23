@@ -48,7 +48,7 @@ export default function AdmissionsPage() {
                 <div className="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-primary text-sm font-bold text-white">
                   {s.step}
                 </div>
-                <h3 className="font-semibold">{s.title}</h3>
+                <h3 className="font-display font-semibold">{s.title}</h3>
                 <p className="mt-2 text-sm text-text-muted">{s.desc}</p>
               </div>
             ))}

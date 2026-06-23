@@ -20,7 +20,7 @@ const frontendCsp = [
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src 'self' https://fonts.gstatic.com",
   "img-src 'self' data: https:",
-  "frame-src https://www.google.com/maps https://www.google.com/recaptcha",
+  "frame-src https://www.google.com https://maps.google.com",
   `connect-src 'self'${isDev ? ' ws:' : ''}`,
 ].join('; ')
 

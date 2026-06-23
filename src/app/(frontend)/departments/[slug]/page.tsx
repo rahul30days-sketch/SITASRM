@@ -60,7 +60,7 @@ export default async function DepartmentDetailPage({ params }: { params: Promise
               {programs.map((p) => (
                 <a key={p.id} href={`/programs/${p.slug}`} className="rounded-md border border-border bg-white p-4 shadow-card hover:shadow-elevated">
                   <span className="mb-1 inline-block text-xs font-medium capitalize text-secondary">{p.category}</span>
-                  <h3 className="font-semibold">{p.name}</h3>
+                  <h3 className="font-display font-semibold">{p.name}</h3>
                 </a>
               ))}
             </div>
@@ -88,7 +88,7 @@ export default async function DepartmentDetailPage({ params }: { params: Promise
             <div className="grid gap-4 sm:grid-cols-2">
               {facilities.map((f, i) => (
                 <div key={i} className="rounded-md border border-border bg-white p-4">
-                  <h3 className="font-semibold">{f.name}</h3>
+                  <h3 className="font-display font-semibold">{f.name}</h3>
                   {f.description && <p className="mt-1 text-sm text-text-muted">{f.description}</p>}
                 </div>
               ))}

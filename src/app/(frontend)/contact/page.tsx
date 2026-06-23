@@ -36,13 +36,13 @@ export default async function ContactPage() {
               <div className="space-y-4">
                 {settings?.address && (
                   <div>
-                    <h3 className="text-sm font-semibold text-text-muted">Address</h3>
+                    <h3 className="text-sm font-display font-semibold text-text-muted">Address</h3>
                     <p className="mt-1 text-sm">{settings.address}</p>
                   </div>
                 )}
                 {phones.length > 0 && (
                   <div>
-                    <h3 className="text-sm font-semibold text-text-muted">Phone</h3>
+                    <h3 className="text-sm font-display font-semibold text-text-muted">Phone</h3>
                     <div className="mt-1 space-y-1">
                       {phones.map((phone: string) => (
                         <a key={phone} href={`tel:${phone}`} className="block text-sm text-primary hover:underline">{phone}</a>
@@ -52,7 +52,7 @@ export default async function ContactPage() {
                 )}
                 {emails.length > 0 && (
                   <div>
-                    <h3 className="text-sm font-semibold text-text-muted">Email</h3>
+                    <h3 className="text-sm font-display font-semibold text-text-muted">Email</h3>
                     <div className="mt-1 space-y-1">
                       {emails.map((email: string) => (
                         <a key={email} href={`mailto:${email}`} className="block text-sm text-primary hover:underline">{email}</a>

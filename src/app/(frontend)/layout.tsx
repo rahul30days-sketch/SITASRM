@@ -1,20 +1,25 @@
 import type { Metadata } from 'next'
 import { Inter, Playfair_Display } from 'next/font/google'
+import NextTopLoader from 'nextjs-toploader'
 import '@/styles/globals.css'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import AnnouncementBanner from '@/components/sections/AnnouncementBanner'
 import BackToTop from '@/components/common/BackToTop'
+import CallbackModal from '@/components/sections/CallbackModal'
 import { safeFindGlobal } from '@/lib/payload'
 
 const inter = Inter({
   subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '900'],
   variable: '--font-inter',
   display: 'swap',
 })
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
+  weight: ['700', '800', '900'],
+  style: ['normal', 'italic'],
   variable: '--font-playfair',
   display: 'swap',
 })
@@ -39,6 +44,14 @@ export default async function FrontendLayout({ children }: { children: React.Rea
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
       <body className="font-sans antialiased">
+        <NextTopLoader
+          color="#c8a951"
+          height={3}
+          showSpinner={false}
+          easing="ease"
+          speed={200}
+          shadow="0 0 10px #c8a951, 0 0 5px #c8a951"
+        />
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:bg-white focus:px-4 focus:py-2 focus:text-primary"
@@ -65,6 +78,7 @@ export default async function FrontendLayout({ children }: { children: React.Rea
           siteSettings={siteSettings as any}
         />
         <BackToTop />
+        <CallbackModal />
       </body>
     </html>
   )

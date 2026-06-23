@@ -40,7 +40,7 @@ export default async function PlacementsPage() {
               { label: 'Recruiters', value: `${latest.recruitersCount}+` },
             ].map((stat) => (
               <div key={stat.label} className="rounded-md bg-white p-6 text-center shadow-elevated">
-                <div className="text-2xl font-bold text-accent">{stat.value}</div>
+                <div className="font-sans text-2xl font-black tracking-tight text-accent">{stat.value}</div>
                 <div className="mt-1 text-sm text-text-muted">{stat.label}</div>
               </div>
             ))}

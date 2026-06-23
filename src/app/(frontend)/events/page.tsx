@@ -56,7 +56,7 @@ export default async function EventsPage() {
               {past.map((event) => (
                 <Link key={event.id} href={`/events/${event.slug}`} className="group rounded-md border border-border bg-white p-6">
                   <span className="inline-block rounded-full bg-gray-100 px-2 py-0.5 text-xs capitalize text-text-muted">{event.type}</span>
-                  <h3 className="mt-2 font-semibold group-hover:text-primary">{event.title}</h3>
+                  <h3 className="mt-2 font-display font-semibold group-hover:text-primary">{event.title}</h3>
                   <p className="mt-1 text-sm text-text-muted">{formatDate(event.startDate)}</p>
                 </Link>
               ))}

@@ -215,7 +215,7 @@ export default function PlacementHighlights({
                       {metric.icon}
                     </span>
                   </div>
-                  <p className="mt-4 font-display text-3xl font-bold text-white sm:text-4xl">
+                  <p className="mt-4 font-sans text-3xl font-black tracking-tight text-white sm:text-4xl">
                     <CountUp
                       value={metric.target}
                       prefix={metric.prefix}

@@ -62,7 +62,7 @@ export function DownloadsClient({ downloads }: { downloads: Download[] }) {
             <div key={dl.id} className="flex items-center justify-between rounded-md border border-border bg-white p-4 shadow-card">
               <div>
                 <span className="text-xs font-medium uppercase text-secondary">{dl.category}</span>
-                <h3 className="font-semibold">{dl.title}</h3>
+                <h3 className="font-display font-semibold">{dl.title}</h3>
                 {dl.description && <p className="text-sm text-text-muted">{dl.description}</p>}
               </div>
               {dl.file?.url && (

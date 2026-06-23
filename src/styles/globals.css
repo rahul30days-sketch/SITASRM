@@ -33,7 +33,7 @@
   }
 
   body {
-    font-family: var(--font-sans);
+    font-family: var(--font-inter), system-ui, sans-serif;
     color: var(--color-text);
     background: var(--color-background);
     -webkit-font-smoothing: antialiased;
@@ -57,9 +57,10 @@
 
   /* Gold gradient text for key headings */
   .text-gradient-gold {
-    background-image: linear-gradient(100deg, #c8a951 0%, #e8d080 60%, #f3e3b3 100%);
+    background: linear-gradient(135deg, #c8a951, #e8d080, #c8a951);
     -webkit-background-clip: text;
     background-clip: text;
+    -webkit-text-fill-color: transparent;
     color: transparent;
   }
 

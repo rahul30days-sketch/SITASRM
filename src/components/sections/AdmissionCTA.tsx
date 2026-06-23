@@ -10,6 +10,7 @@ import {
   ArrowRight,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import ProgramSelect from '@/components/ui/ProgramSelect'
 
 /* Loose pass-through types — raw Payload docs. */
 interface Program {
@@ -33,7 +34,6 @@ const TRUST_CHIPS = [
 ] as const
 
 export default function AdmissionCTA({
-  programs = [],
   className,
 }: AdmissionCTAProps) {
   const [name, setName] = useState('')
@@ -50,7 +50,7 @@ export default function AdmissionCTA({
     setErrorMessage('')
 
     try {
-      const res = await fetch('/api/brochure', {
+      const res = await fetch('/api/callback', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, phone, program }),
@@ -223,32 +223,11 @@ export default function AdmissionCTA({
                       >
                         Program of Interest
                       </label>
-                      <select
-                        id="cta-program"
-                        name="program"
-                        required
+                      <ProgramSelect
                         value={program}
-                        onChange={(e) => setProgram(e.target.value)}
-                        className={cn(
-                          'w-full appearance-none rounded-md border border-border px-4 py-2.5',
-                          'bg-white text-text',
-                          'outline-none transition-all duration-200',
-                          'focus:border-gold focus:ring-2 focus:ring-gold/30',
-                          !program && 'text-text-muted',
-                        )}
-                      >
-                        <option value="" disabled>
-                          Select a program
-                        </option>
-                        {programs.map((p, i) => (
-                          <option
-                            key={p.id ?? p.slug ?? i}
-                            value={p.slug ?? ''}
-                          >
-                            {p.name ?? 'Program'}
-                          </option>
-                        ))}
-                      </select>
+                        onChange={setProgram}
+                        placeholder="Select a program"
+                      />
                     </div>
 
                     {status === 'error' && errorMessage ? (

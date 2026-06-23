@@ -14,7 +14,7 @@ export const auditLogAfterChange: CollectionAfterChangeHook = async ({
       data: {
         user: req.user?.id,
         userEmail: req.user?.email || 'system',
-        collection: collection.slug,
+        collectionSlug: collection.slug,
         action: operation,
         documentId: doc.id,
         ipAddress:
@@ -43,7 +43,7 @@ export const auditLogAfterDelete: CollectionAfterDeleteHook = async ({
       data: {
         user: req.user?.id,
         userEmail: req.user?.email || 'system',
-        collection: collection.slug,
+        collectionSlug: collection.slug,
         action: 'delete',
         documentId: doc.id,
         ipAddress:

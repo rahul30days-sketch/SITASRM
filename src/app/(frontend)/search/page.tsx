@@ -62,7 +62,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
             <div className="space-y-3">
               {programs.docs.map((p) => (
                 <Link key={p.id} href={`/programs/${p.slug}`} className="block rounded-md border border-border bg-white p-4 hover:shadow-card">
-                  <h3 className="font-semibold">{p.title}</h3>
+                  <h3 className="font-display font-semibold">{p.title}</h3>
                   {p.shortDescription && <p className="mt-1 text-sm text-text-muted">{truncate(p.shortDescription as string, 120)}</p>}
                 </Link>
               ))}
@@ -76,7 +76,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
             <div className="space-y-3">
               {faculty.docs.map((f) => (
                 <Link key={f.id} href={`/faculty/${f.slug}`} className="block rounded-md border border-border bg-white p-4 hover:shadow-card">
-                  <h3 className="font-semibold">{f.name}</h3>
+                  <h3 className="font-display font-semibold">{f.name}</h3>
                   {f.designation && <p className="mt-1 text-sm text-text-muted">{f.designation as string}</p>}
                 </Link>
               ))}
@@ -90,7 +90,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
             <div className="space-y-3">
               {news.docs.map((n) => (
                 <Link key={n.id} href={`/news/${n.slug}`} className="block rounded-md border border-border bg-white p-4 hover:shadow-card">
-                  <h3 className="font-semibold">{n.title}</h3>
+                  <h3 className="font-display font-semibold">{n.title}</h3>
                 </Link>
               ))}
             </div>
@@ -103,7 +103,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
             <div className="space-y-3">
               {events.docs.map((e) => (
                 <Link key={e.id} href={`/events/${e.slug}`} className="block rounded-md border border-border bg-white p-4 hover:shadow-card">
-                  <h3 className="font-semibold">{e.title}</h3>
+                  <h3 className="font-display font-semibold">{e.title}</h3>
                 </Link>
               ))}
             </div>

@@ -1,7 +1,11 @@
 'use client'
 
 import { useState } from 'react'
+import { User, Tag } from 'lucide-react'
 import { applicationSchema } from '@/lib/validation/schemas'
+import ProgramSelect from '@/components/ui/ProgramSelect'
+import ModernSelect from '@/components/ui/ModernSelect'
+import DatePicker from '@/components/ui/DatePicker'
 
 interface Program {
   id: string
@@ -121,28 +125,43 @@ export function ApplicationFormClient({ programs }: { programs: Program[] }) {
           </div>
           <div>
             <label className={labelClass}>Date of Birth *</label>
-            <input type="date" className={inputClass} value={formData.dob} onChange={(e) => updateField('dob', e.target.value)} />
+            <DatePicker
+              value={formData.dob}
+              onChange={(v) => updateField('dob', v)}
+              placeholder="dd-mm-yyyy"
+              fromYear={1990}
+            />
           </div>
           <div>
             <label className={labelClass}>Gender *</label>
-            <select className={inputClass} value={formData.gender} onChange={(e) => updateField('gender', e.target.value)}>
-              <option value="">Select</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-              <option value="other">Other</option>
-              <option value="prefer-not-to-say">Prefer not to say</option>
-            </select>
+            <ModernSelect
+              value={formData.gender}
+              onChange={(v) => updateField('gender', v)}
+              placeholder="Select gender"
+              icon={User}
+              options={[
+                { value: 'male', label: 'Male' },
+                { value: 'female', label: 'Female' },
+                { value: 'other', label: 'Other' },
+                { value: 'prefer-not-to-say', label: 'Prefer not to say' },
+              ]}
+            />
           </div>
           <div>
             <label className={labelClass}>Category *</label>
-            <select className={inputClass} value={formData.category} onChange={(e) => updateField('category', e.target.value)}>
-              <option value="">Select</option>
-              <option value="general">General</option>
-              <option value="obc">OBC</option>
-              <option value="sc">SC</option>
-              <option value="st">ST</option>
-              <option value="ews">EWS</option>
-            </select>
+            <ModernSelect
+              value={formData.category}
+              onChange={(v) => updateField('category', v)}
+              placeholder="Select category"
+              icon={Tag}
+              options={[
+                { value: 'general', label: 'General' },
+                { value: 'obc', label: 'OBC' },
+                { value: 'sc', label: 'SC' },
+                { value: 'st', label: 'ST' },
+                { value: 'ews', label: 'EWS' },
+              ]}
+            />
           </div>
         </div>
       )}
@@ -175,12 +194,13 @@ export function ApplicationFormClient({ programs }: { programs: Program[] }) {
       {step === 2 && (
         <div>
           <label className={labelClass}>Select Program *</label>
-          <select className={inputClass} value={formData.programApplied} onChange={(e) => updateField('programApplied', e.target.value)}>
-            <option value="">Choose a program</option>
-            {programs.map((p) => (
-              <option key={p.id} value={p.id}>{p.name} ({p.category})</option>
-            ))}
-          </select>
+          <ProgramSelect
+            value={programs.find((p) => p.id === formData.programApplied)?.name || ''}
+            onChange={(name) => {
+              const match = programs.find((p) => p.name === name)
+              updateField('programApplied', match?.id || '')
+            }}
+          />
         </div>
       )}
 
@@ -207,15 +227,15 @@ export function ApplicationFormClient({ programs }: { programs: Program[] }) {
 
       {step === 4 && (
         <div className="space-y-4 text-sm">
-          <h3 className="font-semibold">Personal Details</h3>
+          <h3 className="font-display font-semibold">Personal Details</h3>
           <p>{formData.applicantName} | {formData.email} | {formData.phone}</p>
           <p>DOB: {formData.dob} | Gender: {formData.gender} | Category: {formData.category}</p>
-          <h3 className="font-semibold">Academic Details</h3>
+          <h3 className="font-display font-semibold">Academic Details</h3>
           <p>10th: {formData.academicDetails.class10Percent}% ({formData.academicDetails.class10Board})</p>
           <p>12th: {formData.academicDetails.class12Percent}% ({formData.academicDetails.class12Board})</p>
-          <h3 className="font-semibold">Program</h3>
+          <h3 className="font-display font-semibold">Program</h3>
           <p>{programs.find((p) => p.id === formData.programApplied)?.name || 'Not selected'}</p>
-          <h3 className="font-semibold">Address</h3>
+          <h3 className="font-display font-semibold">Address</h3>
           <p>{[formData.address.street, formData.address.city, formData.address.state, formData.address.pincode].filter(Boolean).join(', ')}</p>
         </div>
       )}
