@@ -119,7 +119,7 @@ export default function HeroSection({ campusImageUrl, content, className }: Hero
       />
 
       {/* Content */}
-      <div className="relative z-10 mx-auto w-full max-w-7xl px-4 pb-28 pt-28 sm:px-6 lg:px-8 lg:py-0">
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-4 pb-28 pt-28 sm:px-6 lg:px-8 lg:pb-24 lg:pt-32">
         <motion.div
           variants={staggerContainer}
           initial="hidden"
@@ -135,7 +135,7 @@ export default function HeroSection({ campusImageUrl, content, className }: Hero
 
           <motion.h1
             variants={fadeUp}
-            className="mt-6 font-display font-bold tracking-tight text-balance"
+            className="mt-6 font-sans font-bold tracking-tight text-balance"
           >
             <span className="block text-4xl leading-tight text-white sm:text-5xl lg:text-6xl">
               {headingTop}
