@@ -1,4 +1,3 @@
-import path from 'path'
 import { withPayload } from '@payloadcms/next/withPayload'
 import type { NextConfig } from 'next'
 
@@ -44,31 +43,9 @@ const nextConfig: NextConfig = {
       { protocol: 'https', hostname: 'www.seri.net.in' },
       { protocol: 'https', hostname: 'images.unsplash.com' },
       { protocol: 'https', hostname: 'placehold.co' },
-      // Vercel Blob — where uploaded media is served from in production
+      // Existing seeded media was uploaded to Vercel Blob; allow it to still render.
       { protocol: 'https', hostname: '*.public.blob.vercel-storage.com' },
     ],
-  },
-  webpack: (config, { webpack }) => {
-    // The Vercel Blob adapter ALWAYS registers its client upload handler in the
-    // Payload admin importMap (even with clientUploads off — and the importMap is
-    // auto-regenerated, so editing it isn't durable). That handler imports the
-    // plugin's *server* utilities barrel, dragging the whole `payload` server tree
-    // (pino/pino-pretty, undici, fs, os, node:* …) into the browser bundle and
-    // breaking the build. We can't stub those (logger.js builds pino at module
-    // load), so we redirect the handler module itself to a no-op client-safe
-    // stand-in. This MUST run for BOTH the server and client compilers so the RSC
-    // client-reference identity stays consistent (server emits the reference, the
-    // client manifest resolves it) — redirecting only the client build breaks with
-    // "Could not find the module … in the React Client Manifest". Match both the
-    // bare specifier and the resolved file path. Uploads are server-routed
-    // (clientUploads off), so the real client handler is never needed.
-    config.plugins.push(
-      new webpack.NormalModuleReplacementPlugin(
-        /storage-vercel-blob[/\\](client|dist[/\\]client[/\\]VercelBlobClientUploadHandler)/,
-        path.resolve(process.cwd(), 'src/payload/stubs/vercelBlobClientUploadHandler.ts'),
-      ),
-    )
-    return config
   },
   async headers() {
     return [
