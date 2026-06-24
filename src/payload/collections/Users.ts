@@ -88,12 +88,19 @@ export const Users: CollectionConfig = {
       },
     ],
     afterLogin: [
-      async ({ user, req }) => {
-        await req.payload.update({
-          collection: 'users',
-          id: user.id,
-          data: { lastLogin: new Date().toISOString() },
-        })
+      ({ user, req }) => {
+        // Best-effort lastLogin tracking. Runs OUTSIDE the login transaction
+        // (no `req` passed) and is fire-and-forget — updating within the login's
+        // Mongo transaction causes "Write conflict" 500s on Atlas (esp. M0 free
+        // tier). Never await or throw here so login can never fail because of it.
+        void req.payload
+          .update({
+            collection: 'users',
+            id: user.id,
+            data: { lastLogin: new Date().toISOString() },
+            overrideAccess: true,
+          })
+          .catch(() => {})
         return user
       },
     ],
