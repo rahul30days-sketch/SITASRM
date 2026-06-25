@@ -1,3 +1,4 @@
+import path from 'path'
 import { withPayload } from '@payloadcms/next/withPayload'
 import type { NextConfig } from 'next'
 
@@ -43,9 +44,23 @@ const nextConfig: NextConfig = {
       { protocol: 'https', hostname: 'www.seri.net.in' },
       { protocol: 'https', hostname: 'images.unsplash.com' },
       { protocol: 'https', hostname: 'placehold.co' },
-      // Existing seeded media was uploaded to Vercel Blob; allow it to still render.
+      // Uploaded media is served from Vercel Blob.
       { protocol: 'https', hostname: '*.public.blob.vercel-storage.com' },
     ],
+  },
+  webpack: (config, { webpack }) => {
+    // The Vercel Blob adapter always registers its client upload handler in the
+    // admin importMap; the real handler pulls the whole payload server tree into
+    // the browser bundle and breaks the build. Redirect it (both compilers, so the
+    // RSC client-reference stays consistent) to a no-op client-safe stand-in.
+    // clientUploads is off, so the real handler is never needed at runtime.
+    config.plugins.push(
+      new webpack.NormalModuleReplacementPlugin(
+        /storage-vercel-blob[/\\](client|dist[/\\]client[/\\]VercelBlobClientUploadHandler)/,
+        path.resolve(process.cwd(), 'src/payload/stubs/vercelBlobClientUploadHandler.ts'),
+      ),
+    )
+    return config
   },
   async headers() {
     return [

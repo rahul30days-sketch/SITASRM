@@ -3,6 +3,7 @@ import { fileURLToPath } from 'url'
 import { buildConfig } from 'payload'
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
@@ -87,6 +88,16 @@ export default buildConfig({
     AuditLogs,
   ],
   globals: [SiteSettings, Navigation, Footer],
+  // Cloud storage for uploaded media. Required on Vercel (its filesystem is
+  // read-only, so local-disk uploads 500). Auto-enabled when BLOB_READ_WRITE_TOKEN
+  // is present; falls back to local disk in dev / on the VPS (where local disk works).
+  plugins: [
+    vercelBlobStorage({
+      enabled: Boolean(process.env.BLOB_READ_WRITE_TOKEN),
+      collections: { media: true },
+      token: process.env.BLOB_READ_WRITE_TOKEN,
+    }),
+  ],
   cors: [process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'],
   secret: payloadSecret || 'dev-only-insecure-secret-change-me',
   typescript: {
