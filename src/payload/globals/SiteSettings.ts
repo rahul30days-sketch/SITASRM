@@ -1,3 +1,4 @@
+import { revalidatePath } from 'next/cache'
 import type { GlobalConfig } from 'payload'
 import { isAdmin, isAnyone } from '../access'
 
@@ -9,6 +10,13 @@ export const SiteSettings: GlobalConfig = {
   access: {
     read: isAnyone,
     update: isAdmin,
+  },
+  hooks: {
+    afterChange: [
+      () => {
+        revalidatePath('/', 'layout')
+      },
+    ],
   },
   fields: [
     { name: 'siteName', type: 'text', required: true, maxLength: 100 },
