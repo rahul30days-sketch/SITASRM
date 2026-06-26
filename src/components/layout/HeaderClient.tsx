@@ -15,6 +15,22 @@ interface HeaderClientProps {
   logoUrl?: string
 }
 
+/**
+ * Home dropdown — lets the client switch between the live homepage and the three
+ * concept layouts during review. Prepended to the CMS nav; any existing top-level
+ * "Home" item is removed so it isn't duplicated.
+ */
+const HOME_NAV: NavItem = {
+  label: 'Home',
+  href: '/',
+  children: [
+    { label: 'Current Homepage', href: '/' },
+    { label: 'Home 1 — University', href: '/home-1' },
+    { label: 'Home 2 — EdTech', href: '/home-2' },
+    { label: 'Home 3 — Premium', href: '/home-3' },
+  ],
+}
+
 export default function HeaderClient({ navItems, ctaButton, transparent = false, logoUrl }: HeaderClientProps) {
   const pathname = usePathname()
   const [scrolled, setScrolled] = useState(false)
@@ -64,6 +80,12 @@ export default function HeaderClient({ navItems, ctaButton, transparent = false,
 
   const isTransparent = transparent && !scrolled
 
+  // Prepend the Home concept-switcher; drop any CMS "Home" item to avoid a duplicate.
+  const navWithHome: NavItem[] = [
+    HOME_NAV,
+    ...navItems.filter((i) => i.href !== '/' && i.label.toLowerCase() !== 'home'),
+  ]
+
   return (
     <>
       <header
@@ -98,7 +120,7 @@ export default function HeaderClient({ navItems, ctaButton, transparent = false,
 
           {/* Desktop nav */}
           <nav className="hidden lg:flex lg:items-center lg:gap-1" aria-label="Main navigation">
-            {navItems.map((item) => (
+            {navWithHome.map((item) => (
               <div
                 key={item.label}
                 className="relative"
@@ -234,7 +256,7 @@ export default function HeaderClient({ navItems, ctaButton, transparent = false,
       <MobileNav
         isOpen={mobileOpen}
         onClose={closeMobile}
-        navItems={navItems}
+        navItems={navWithHome}
         ctaButton={ctaButton}
       />
 
