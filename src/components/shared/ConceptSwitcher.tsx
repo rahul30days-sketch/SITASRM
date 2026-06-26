@@ -16,6 +16,7 @@ const LINKS = [
   { label: 'Home 1 · Heritage', sub: 'Premium university', href: '/home-1' },
   { label: 'Home 2 · Studio', sub: 'Apple / Awwwards', href: '/home-2' },
   { label: 'Home 3 · Obsidian', sub: 'Dark luxury', href: '/home-3' },
+  { label: 'Home 4 · Signature', sub: 'SITASRM brand', href: '/home-4' },
 ]
 
 type Variant = 'light' | 'dark' | 'glass'

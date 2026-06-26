@@ -28,6 +28,7 @@ const HOME_NAV: NavItem = {
     { label: 'Home 1 — University', href: '/home-1' },
     { label: 'Home 2 — EdTech', href: '/home-2' },
     { label: 'Home 3 — Premium', href: '/home-3' },
+    { label: 'Home 4 — Signature', href: '/home-4' },
   ],
 }
 

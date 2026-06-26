@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter, Playfair_Display, Syne, Manrope } from 'next/font/google'
+import { Inter, Playfair_Display, Space_Grotesk, Manrope, Fraunces } from 'next/font/google'
 import NextTopLoader from 'nextjs-toploader'
 import '@/styles/globals.css'
 
@@ -28,19 +28,28 @@ const playfair = Playfair_Display({
   display: 'swap',
 })
 
-// Home 3 — bold luxury display
-const syne = Syne({
+// Home 2 — geometric modern
+const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700', '800'],
-  variable: '--font-syne',
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-space',
   display: 'swap',
 })
 
-// Home 2 — clean, professional modern sans
+// Home 3 — clean, professional premium sans
 const manrope = Manrope({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700', '800'],
   variable: '--font-manrope',
+  display: 'swap',
+})
+
+// Home 4 — SITASRM signature: elegant heritage serif (tradition + innovation)
+const fraunces = Fraunces({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '900'],
+  style: ['normal', 'italic'],
+  variable: '--font-fraunces',
   display: 'swap',
 })
 
@@ -54,7 +63,7 @@ export default function ConceptsLayout({ children }: { children: React.ReactNode
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${playfair.variable} ${syne.variable} ${manrope.variable}`}
+      className={`${inter.variable} ${playfair.variable} ${spaceGrotesk.variable} ${manrope.variable} ${fraunces.variable}`}
     >
       <body className="font-sans antialiased">
         <NextTopLoader color="#c8a951" height={3} showSpinner={false} easing="ease" speed={200} />

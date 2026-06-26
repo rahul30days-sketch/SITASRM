@@ -14,6 +14,14 @@
  */
 export const WHITE_LOGO = '/logo-white.png'
 
+/**
+ * Full-colour logo (dark text + lotus mark) for use on LIGHT backgrounds (e.g. the
+ * Home 4 ivory navbar). Tracked at `public/logo.png` so it deploys to Vercel and
+ * never depends on the CMS media route (`/api/media/file/logo.png`), which 500s on
+ * environments without local/Blob media.
+ */
+export const BRAND_LOGO = '/logo.png'
+
 const U = 'https://images.unsplash.com'
 const Q = 'auto=format&fit=crop&q=80'
 

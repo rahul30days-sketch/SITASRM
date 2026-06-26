@@ -13,7 +13,7 @@ import Footer3 from './Footer3'
 
 /**
  * Concept 3 — "Obsidian". Bold dark-luxury, Awwwards-winner mood: near-black base,
- * gold accents, oversized Syne display type, fullscreen cinematic hero with parallax +
+ * gold accents, clean professional Manrope type, fullscreen cinematic hero with parallax +
  * drifting glows, fullscreen off-canvas menu. Owns its own navbar + footer (no shared
  * chrome). SERVER component — interactive pieces are isolated in 'use client' children.
  */
